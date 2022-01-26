@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="css/main.css" />
+    <title>MineSweeper</title>
+  </head>
+  <!-- onmousedown="WhichButton(event)" -->
+  <!-- <body onload="initGame()"> -->
+  <body onload="initGame(4)" >
+    <h1>MineSweeper</h1>
+    <p>Please select the level of the game:</p>
+
+    <div class="options">
+        
+        <input type="radio" id="16" name="level" value="16" />
+        <label for="html">Easy 4X4</label></br>
+        <input type="radio" id="25" name="level" value="25" />
+        <label for="css">Hard 8X8</label></br>
+        <input type="radio" id="36" name="level" value="36" />
+        <label for="Extreme">Extreme 12X12</label></br>
+    </div>
+    <button type="button" onclick="displayRadioValue()">Play</button>
+    <p>Game Timer</p>
+    <div class="timer">
+        <label id="minutes">00</label>:<label id="seconds">00</label>
+    </div>
+    <div onclick="initGame(4)">😀</div>
+    <table class="design" >
+        <tbody class="board"></tbody>
+        
+    </table>
+    <script src="js/util.js"></script>
+    <script src="js/game.js"></script>
+
+  </body>
+</html>

@@ -1,0 +1,51 @@
+/* table {
+  width: 40%;
+  height: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  empty-cells: show; */
+/* }
+table, */
+/* body {
+  text-align: center;
+} */
+
+* {
+  box-sizing: border-box;
+}
+table,
+td,
+tr {
+  table-layout: fixed;
+  border: 1px solid #ddd;
+  text-align: center;
+}
+
+table {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+tr,
+td {
+  height: 30px;
+  padding: 5px;
+  width: 30%;
+}
+
+.mark {
+  background-color: lightgray;
+}
+
+/* border: 2px black;
+  font-weight: bold; */
+
+/* td {
+  background-color: rgb(61, 32, 32);
+  color: #fff;
+  font-size: 20px;
+  width: 25%;
+} */
+/* visibility: hidden; */
