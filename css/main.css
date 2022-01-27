@@ -20,6 +20,8 @@ body {
 }
 h1 {
   font-size: 4em;
+  margin-bottom: 0px;
+  margin-top: 3px;
 }
 
 table {
@@ -134,4 +136,39 @@ button:hover {
 button.hint {
   margin-top: 10px;
   background-image: linear-gradient(92.88deg, #4bbd68 9.16%, #4fe69a 43.89%, #4cee4c 64.72%);
+  font-size: 14px;
+  font-weight: 400;
+  height: 2rem;
+  padding: 0 1.6rem;
 }
+
+button.Safe {
+  margin-top: 10px;
+  background-image: linear-gradient(92.88deg, #c054d3 9.16%, #df7cf3 43.89%, #f576ea 64.72%);
+  margin-left: 10px;
+  font-size: 14px;
+  font-weight: 400;
+  height: 2rem;
+  padding: 0 1.6rem;
+}
+.invalid-blink {
+  background-color: #4cee4c;
+  animation: animate 1.5s linear infinite;
+  /* background-color: red; */
+}
+@keyframes animate {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+/* .safeDiv {
+  display: block;
+} */

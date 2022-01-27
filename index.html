@@ -22,8 +22,12 @@
     <table class="design">
       <tbody class="board"></tbody>
     </table>
-    <button class="hint" type="button" onclick="hint()">Hint - 3 hints left</button>
 
+    <!-- <button class="hint" type="button" onclick="hint()">Hint - 3 hints left</button> -->
+    <div class="safeDiv">
+      <button class="Safe" type="button" onclick="safeClicks()">safe clicks</button>
+      <label id="clicks">3</label><label id="left"> clicks available </label>
+    </div>
     <div class="lives">
       <h2>Lives</h2>
       <img class="lives1" src="img/heart.png" />

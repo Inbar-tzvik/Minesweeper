@@ -9,11 +9,15 @@ var minesLocation = [];
 var firstCell;
 var gLives;
 var gCountLostlives;
+var gcountSafeClicks;
+
 var minutesLabel = document.getElementById('minutes');
 var secondsLabel = document.getElementById('seconds');
 window.addEventListener('contextmenu', (e) => e.preventDefault());
 
 function initGame(size) {
+  gcountSafeClicks = 3;
+
   firstCell = true;
   totalSeconds = 0;
   clearInterval(gGameInterval);
@@ -29,7 +33,7 @@ function initGame(size) {
   if (size === 4) {
     gLevel.mines = 2;
     gLives = 2;
-    // document.querySelector(`.lives3`).style.display = 'none';
+    document.querySelector(`.lives3`).classList.add('hide');
   } else if (size === 8) gLevel.mines = 12;
   else gLevel.mines = 30;
   buildBoard(size);
@@ -41,10 +45,13 @@ function initGame(size) {
 }
 
 function showLives() {
+  document.querySelector('#clicks').innerText = gcountSafeClicks;
+
   document.querySelector(`.lives1`).classList.remove('hide');
   document.querySelector(`.lives2`).classList.remove('hide');
   document.querySelector(`.lives3`).classList.remove('hide');
 }
+
 function buildBoard(size) {
   gBoard = [];
   for (var i = 0; i < size; i++) {
@@ -123,7 +130,6 @@ function cellClicked(event, elCell, cellI, cellJ) {
           cellMarked(elCell, cellI, cellJ);
           break;
       }
-      checkGameOver();
     }
   }
 }
@@ -134,6 +140,7 @@ function cellMarked(elCell, cellI, cellJ) {
   cell.isMarked = !cell.isMarked ? true : false;
   elCell.innerText = cell.isMarked ? FLAG : '';
   gGame.markedCount += cell.isMarked ? +1 : -1;
+  checkGameOver();
 }
 
 //to be continued
@@ -142,14 +149,23 @@ function movePlay(elCell, i, j) {
   if (cell.isMine) {
     stepOnMine(elCell, i, j);
     return;
-  } else if (cell.minesAroundCount >= 0 && !cell.isMarked) {
-    elCell.innerText = cell.minesAroundCount > 0 ? cell.minesAroundCount : '';
+  } else if (cell.minesAroundCount > 0 && !cell.isMarked) {
+    elCell.innerText = cell.minesAroundCount;
     gGame.shownCount++;
     elCell.classList.add('mark');
     cell.isShown = true;
-    expandShown(elCell, i, j);
+    // expandShown(i, j);
+  } else {
+    gGame.shownCount++;
+    elCell.classList.add('mark');
+    cell.isShown = true;
+    expandShown(i, j);
+    //checkSquare(elCell, cellI, cellJ)
   }
+  checkGameOver();
 }
+// function checkSquare(elCell, i, j) {}
+
 function stepOnMine(elCell, i, j) {
   elCell.innerText = MIND;
   elCell.style.backgroundColor = 'red';
@@ -157,6 +173,8 @@ function stepOnMine(elCell, i, j) {
   gLives--;
   gCountLostlives++;
   gBoard[i][j].isShown = true;
+  gGame.shownCount++;
+
   if (!gLives) {
     for (var m = 0; m < minesLocation.length; m++) {
       locI = minesLocation[m].i;
@@ -172,7 +190,7 @@ function stepOnMine(elCell, i, j) {
 //to be continued
 
 //showing negs
-function expandShown(elCell, rowIdx, colIdx) {
+function expandShown(rowIdx, colIdx) {
   var cell = gBoard[rowIdx][colIdx];
   if (!cell.isMine && !cell.minesAroundCount && !cell.isMarked) {
     for (var i = rowIdx - 1; i <= rowIdx + 1; i++) {
@@ -187,7 +205,10 @@ function expandShown(elCell, rowIdx, colIdx) {
         var cellDom = document.querySelector(`.cell-${i}-${j}`);
         cellDom.classList.add('mark');
         if (currCell.minesAroundCount > 0) cellDom.innerText = currCell.minesAroundCount;
-        else cellDom.innerText = '';
+        else {
+          cellDom.innerText = '';
+          expandShown(i, j);
+        }
       }
     }
   }
@@ -196,6 +217,7 @@ function expandShown(elCell, rowIdx, colIdx) {
 function checkGameOver() {
   var text = null;
   var img = null;
+  console.log(gGame.shownCount, gGame.markedCount);
   if (gCountLostlives === Math.pow(gLevel.size, 2) - gGame.shownCount - gGame.markedCount) {
     text = 'YOU WON';
     img = 'img/cool.png';
@@ -212,4 +234,23 @@ function checkGameOver() {
   }
 }
 
-function hint() {}
+// function hint() {
+//   input.onclick = function () {
+//     console.log('hello');
+//   };
+//   setTimeout(() => {}, 1000);
+// }
+
+function safeClicks() {
+  if (gcountSafeClicks > 0) {
+    var emptyCells = getEmptyCells(gBoard);
+    var location = getRandomInt(0, emptyCells.length - 1);
+    var cell = document.querySelector(`.cell-${emptyCells[location].i}-${emptyCells[location].j}`);
+    cell.classList.add('invalid-blink');
+    setTimeout(() => {
+      cell.classList.remove('invalid-blink');
+    }, 2000);
+    gcountSafeClicks--;
+    document.querySelector('#clicks').innerText = gcountSafeClicks;
+  }
+}
