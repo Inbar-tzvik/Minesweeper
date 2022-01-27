@@ -8,7 +8,7 @@ function getEmptyCells(mat) {
   for (var i = 0; i < mat.length; i++) {
     for (var j = 0; j < mat[i].length; j++) {
       var currCell = gBoard[i][j];
-      if (currCell.isMine === false) emptyCells.push({ i, j });
+      if (!currCell.isMine && !currCell.isShown) emptyCells.push({ i, j });
     }
   }
   return emptyCells;
