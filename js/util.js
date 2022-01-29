@@ -24,6 +24,7 @@ function renderBoard(mat) {
       var className = `cell cell-${i}-${j}`;
       strHTML += `<td  onmousedown="cellClicked(event,this , ${i}, ${j})"  class="${className}  "> ${data}</td>`;
     }
+
     strHTML += '</tr>';
   }
   //   oncontextmenu="event.preventDefault()"
@@ -33,15 +34,14 @@ function renderBoard(mat) {
 
 function setTime() {
   ++totalSeconds;
-  secondsLabel.innerHTML = pad(totalSeconds % 60);
-  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+  secondsLabel.innerHTML = pad(totalSeconds);
 }
 
 function pad(val) {
   var valString = val + '';
   if (valString.length < 2) {
+    return '00' + valString;
+  } else if (valString.length === 2) {
     return '0' + valString;
-  } else {
-    return valString;
-  }
+  } else return valString;
 }

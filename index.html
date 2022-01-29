@@ -13,8 +13,12 @@
     <button type="button" onclick="initGame(4)">Play 4X4</button>
     <button type="button" onclick="initGame(8)">Play 8X8</button>
     <button type="button" onclick="initGame(12)">Play 12X12</button>
+    <div class="bestScore">
+      <p>Best time score for this level:</p>
+      <span id="Best4"></span>
+    </div>
 
-    <div class="timer"><label id="minutes">00</label><label id="colon">:</label><label id="seconds">00</label></div>
+    <div class="timer"><label id="seconds">000</label></div>
 
     <img src="img/smiley.png" onclick="initGame(4)" />
     <div class="status"></div>
@@ -23,7 +27,7 @@
       <tbody class="board"></tbody>
     </table>
 
-    <!-- <button class="hint" type="button" onclick="hint()">Hint - 3 hints left</button> -->
+    <button class="hint" type="button" onclick="hint()">Hint - <label id="hint">3</label> hints left</button>
     <div class="safeDiv">
       <button class="Safe" type="button" onclick="safeClicks()">safe clicks</button>
       <label id="clicks">3</label><label id="left"> clicks available </label>
